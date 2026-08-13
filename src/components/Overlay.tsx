@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, Sparkles, Code2, Cpu, Globe } from "lucide-react";
+import { PortfolioReveal } from "@/components/PortfolioReveal";
 
 interface OverlayProps {
   containerRef?: React.RefObject<HTMLDivElement>;
@@ -16,9 +17,9 @@ export const Overlay: React.FC<OverlayProps> = ({ containerRef }) => {
   });
 
   // Section 1 (0% - 20% scroll)
-  const opacity1 = useTransform(scrollYProgress, [0, 0.08, 0.18, 0.25], [1, 1, 0.8, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.25], [0, -80]);
-  const scale1 = useTransform(scrollYProgress, [0, 0.25], [1, 0.95]);
+  const opacity1 = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.28], [1, 1, 0.6, 0]);
+  const y1 = useTransform(scrollYProgress, [0, 0.28], [0, -60]);
+  const scale1 = useTransform(scrollYProgress, [0, 0.25], [1, 1.25]);
 
   // Section 2 (25% - 50% scroll - Left aligned)
   const opacity2 = useTransform(scrollYProgress, [0.22, 0.3, 0.42, 0.5], [0, 1, 1, 0]);
@@ -35,37 +36,55 @@ export const Overlay: React.FC<OverlayProps> = ({ containerRef }) => {
   return (
     <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-between p-6 sm:p-12 lg:p-20">
       
-      {/* --- Section 1: Hero (0% Scroll - Centered) --- */}
+      {/* --- Section 1: Hero (0% Scroll) --- */}
       <motion.div
         style={{ opacity: opacity1, y: y1, scale: scale1 }}
-        className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+        className="absolute inset-0 z-10 pointer-events-none"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-cyan-400 font-mono text-xs tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-          <span>Interactive Portfolio 2026</span>
+        {/* PORTFOLIO banner positioned at TOP */}
+        <div className="absolute inset-0 z-0">
+          <PortfolioReveal />
         </div>
 
-        <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-white mb-6 max-w-5xl leading-none">
-          Building Intelligent Web Applications with <br />
-          <span className="gradient-text glow-text">Python, Flask & AI</span>
-        </h1>
-
-        <p className="text-gray-400 text-lg sm:text-xl max-w-2xl font-light leading-relaxed mb-8">
-          Passionate about backend development, AI integration, and creating scalable web applications that solve real-world problems.
-        </p>
-
-        {/* Scroll Indicator */}
-        <div className="flex flex-col items-center gap-2">
-          <span className="font-mono text-xs text-gray-500 uppercase tracking-widest">
-            Scroll to explore
-          </span>
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center p-1">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-              className="w-1.5 h-2.5 rounded-full bg-cyan-400"
-            />
+        {/* Top Pill Badge (Centered at top) */}
+        <div className="absolute top-24 left-1/2 -translate-x-1/2 z-10 pointer-events-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-cyan-400 font-mono text-xs tracking-wider uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+            <span>Interactive Portfolio 2026</span>
           </div>
+        </div>
+
+        {/* Bottom Corner Copy Layout framing the center portrait photo cleanly */}
+        <div className="absolute bottom-12 sm:bottom-16 left-6 sm:left-12 right-6 sm:right-12 z-10 flex flex-col md:flex-row items-end justify-between gap-6 pointer-events-none">
+          
+          {/* Bottom-Left Corner Headline */}
+          <div className="max-w-xl text-left glass-panel p-6 rounded-2xl border border-white/10 backdrop-blur-md bg-black/40 shadow-2xl">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              Building Intelligent <br />
+              Web Applications with <br />
+              <span className="gradient-text glow-text">Python, Flask & AI</span>
+            </h1>
+          </div>
+
+          {/* Bottom-Right Corner Subtitle & Scroll Indicator */}
+          <div className="max-w-md text-right flex flex-col items-end gap-4 glass-panel p-6 rounded-2xl border border-white/10 backdrop-blur-md bg-black/40 shadow-2xl">
+            <p className="text-gray-300 text-sm sm:text-base font-light leading-relaxed">
+              Passionate about backend development, AI integration, and creating scalable web applications that solve real-world problems.
+            </p>
+            <div className="flex items-center gap-3 pointer-events-auto">
+              <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest">
+                Scroll to explore
+              </span>
+              <div className="w-5 h-8 rounded-full border border-cyan-400/40 flex justify-center p-1">
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                  className="w-1 h-2 rounded-full bg-cyan-400"
+                />
+              </div>
+            </div>
+          </div>
+
         </div>
       </motion.div>
 
