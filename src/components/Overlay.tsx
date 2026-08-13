@@ -46,13 +46,7 @@ export const Overlay: React.FC<OverlayProps> = ({ containerRef }) => {
           <PortfolioReveal />
         </div>
 
-        {/* Top Pill Badge (Centered at top) */}
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 z-10 pointer-events-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-cyan-400 font-mono text-xs tracking-wider uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-            <span>Interactive Portfolio 2026</span>
-          </div>
-        </div>
+        {/* Top Pill Badge removed as requested */}
 
         {/* Bottom Corner Copy Layout framing the center portrait photo cleanly */}
         <div className="absolute bottom-12 sm:bottom-16 left-6 sm:left-12 right-6 sm:right-12 z-10 flex flex-col md:flex-row items-end justify-between gap-6 pointer-events-none">
